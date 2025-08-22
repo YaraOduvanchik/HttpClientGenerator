@@ -7,17 +7,17 @@ namespace HttpClientGenerator.Api.Controllers;
 [Route("[controller]")]
 public class TestController : ControllerBase
 {
-    private readonly IHttpClientGeneratorService _httpClientGeneratorService;
+    private readonly IWeatherForecastHttpClient _weatherForecastHttpClient;
 
-    public TestController(IHttpClientGeneratorService httpClientGeneratorService)
+    public TestController(IWeatherForecastHttpClient weatherForecastHttpClient)
     {
-        _httpClientGeneratorService = httpClientGeneratorService;
+        _weatherForecastHttpClient = weatherForecastHttpClient;
     }
 
     [HttpGet]
     public async Task<IActionResult> TestGet()
     {
-        var result = await _httpClientGeneratorService.WeatherForecastController.GetWeatherForecastAsync();
+        var result = await _weatherForecastHttpClient.GetWeatherForecastAsync();
         return Ok(result);
     }
 }

@@ -8,32 +8,32 @@ namespace HttpClientGenerator.Api.Controllers;
 [Route("[controller]")]
 public class MinimalApiTestController : ControllerBase
 {
-    private readonly IHttpClientGeneratorService _httpClientGeneratorService;
+    private readonly IWeatherForecastHttpClient _weatherForecastHttpClient;
 
 
-    public MinimalApiTestController(IHttpClientGeneratorService httpClientGeneratorService)
+    public MinimalApiTestController(IWeatherForecastHttpClient weatherForecastHttpClient)
     {
-        _httpClientGeneratorService = httpClientGeneratorService;
+        _weatherForecastHttpClient = weatherForecastHttpClient;
     }
     
     [HttpGet("weather")]
     public async Task<IActionResult> GetWeatherFromMinimalApi()
     {
-        var result = await _httpClientGeneratorService.WeatherForecastController.GetWeatherAsync();
+        var result = await _weatherForecastHttpClient.GetWeatherAsync();
         return Ok(new { Source = "Minimal API", Data = result });
     }
     
     [HttpPost("weather")]
     public async Task<IActionResult> CreateWeatherInMinimalApi([FromBody] WeatherForecast weather)
     {
-        var result = await _httpClientGeneratorService.WeatherForecastController.CreateWeatherAsync(weather);
+        var result = await _weatherForecastHttpClient.CreateWeatherAsync(weather);
         return Ok(new { Source = "Minimal API", Created = result });
     }
     
     [HttpGet("weather/{days:int}")]
     public async Task<IActionResult> GetWeatherForDaysFromMinimalApi(int days)
     {
-        var result = await _httpClientGeneratorService.WeatherForecastController.GetWeatherForDaysAsync(days);
+        var result = await _weatherForecastHttpClient.GetWeatherForDaysAsync(days);
         return Ok(new { Source = "Minimal API with parameter", Days = days, Data = result });
     }
     
@@ -49,9 +49,9 @@ public class MinimalApiTestController : ControllerBase
                 Summary = "Sunny"
             };
             
-            var weatherDefault = await _httpClientGeneratorService.WeatherForecastController.GetWeatherAsync();
-            var weatherForWeek = await _httpClientGeneratorService.WeatherForecastController.GetWeatherForDaysAsync(7);
-            var createdWeather = await _httpClientGeneratorService.WeatherForecastController.CreateWeatherAsync(newWeather);
+            var weatherDefault = await _weatherForecastHttpClient.GetWeatherAsync();
+            var weatherForWeek = await _weatherForecastHttpClient.GetWeatherForDaysAsync(7);
+            var createdWeather = await _weatherForecastHttpClient.CreateWeatherAsync(newWeather);
 
             return Ok(new
             {

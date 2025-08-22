@@ -15,6 +15,7 @@ public static class ServiceCollectionExtensions
     /// <returns>Коллекция сервисов для цепочки вызовов</returns>
     public static IServiceCollection AddHttpClientHandlers(this IServiceCollection services)
     {
+        services.AddScoped<ExceptionHandler>();
         services.AddScoped<LoggingHandler>();
 
         // Здесь можно добавить регистрацию других handlers

@@ -1,9 +1,9 @@
 ﻿using HttpClientGenerator.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HttpClientGenerator.Communication.Controllers;
+namespace HttpClientGenerator.Communication;
 
-public interface IWeatherForecastController
+public interface IWeatherForecastHttpClient
 {
     [HttpGet("weatherforecast")]
     Task<IEnumerable<WeatherForecast>> GetWeatherForecastAsync();
